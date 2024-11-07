@@ -13,7 +13,6 @@ db.sqlite3
 media
 
 # If you are using MySQL, you might exclude database dumps
-*.sql
 *.sql.gz
 
 # If you are using environment variables in a .env file
