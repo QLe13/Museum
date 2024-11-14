@@ -138,6 +138,9 @@ htmlcov/
 # Bandit security scanner
 .bandit
 
+# Local database settings
+museum/settings.py
+
 # PEP 582; used by e.g. github.com/David-OConnor/pyflow
 __pypackages__/
 
