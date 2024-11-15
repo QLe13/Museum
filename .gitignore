@@ -62,6 +62,9 @@ venv.bak/
 # PyCharm settings
 .idea/
 
+# Local settings
+museum/settings.py
+
 # MacOS files
 .DS_Store
 
@@ -137,9 +140,6 @@ htmlcov/
 
 # Bandit security scanner
 .bandit
-
-# Local database settings
-museum/settings.py
 
 # PEP 582; used by e.g. github.com/David-OConnor/pyflow
 __pypackages__/
