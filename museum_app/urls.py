@@ -2,7 +2,7 @@ from django.urls import path, include
 from rest_framework import routers
 from .views import (
     PersonViewSet, ExhibitViewSet, VisitViewSet,
-    ItemViewSet, TransactionViewSet, TransactionItemViewSet
+    ItemViewSet, TransactionViewSet, TransactionItemViewSet, total_revenue, total_visitors
 )
 
 router = routers.DefaultRouter()
@@ -15,4 +15,6 @@ router.register(r'transaction-items', TransactionItemViewSet)
 
 urlpatterns = [
     path('', include(router.urls)),
+    path('adv/revenue/exhibit', total_revenue),
+    path('adv/visitors/exhibit', total_visitors)
 ]

@@ -1,6 +1,7 @@
 from django.shortcuts import render
+from django.http import HttpResponse
 from rest_framework import viewsets
-from .models import Person, Exhibit, Visit, Item, Transaction, TransactionItem
+from .models import Person, Exhibit, Visit, Item, Transaction, TransactionItem, find_total_revenue, find_total_visitors
 from .serializers import (
     PersonSerializer, ExhibitSerializer, VisitSerializer,
     ItemSerializer, TransactionSerializer, TransactionItemSerializer
@@ -30,3 +31,12 @@ class TransactionItemViewSet(viewsets.ModelViewSet):
     queryset = TransactionItem.objects.all()
     serializer_class = TransactionItemSerializer
 
+def total_revenue(request):
+    revenue = find_total_revenue()
+    html = '<html><body>The total revenue for each exhibit is %s' % revenue
+    return HttpResponse(html)
+
+def total_visitors(request):
+    visitors = find_total_visitors()
+    html = '<html><body>The total number of visitors for each exhibit is %s' % visitors
+    return HttpResponse(html)
