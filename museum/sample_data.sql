@@ -1,4 +1,4 @@
-INSERT INTO Person (name, email, phone, role) VALUES
+INSERT INTO museum_app_person (name, email, phone, role) VALUES
 ('Sannvah', 'san30', '1231234545', 'employee'),
 ('Quang', 'quang','1234567890', 'visitor'),
 ('David', 'david', '4567891234', 'visitor'),
@@ -11,12 +11,12 @@ INSERT INTO Person (name, email, phone, role) VALUES
 ('Jonas', 'jonas234', '2221112222', 'visitor'),
 (98,'Thing-A-bob','thingaBob','3131223333','visitor');
 
-INSERT INTO Exhibit(name,description,start_date,end_date,current_ticket_price) VALUES
+INSERT INTO museum_app_exhibit(name,description,start_date,end_date,current_ticket_price) VALUES
 ('1800 paintings','painting created during the 1800s','2024-9-23','2025-9-23',10),
 ('Cats sculptures', 'sculptures of cats', '2024-10-07', '2025-12-31',5),
 ('Collection of used toothbrushes', 'It a collection of used toothbrushes', '2023-12-25','2024-12-25', 10);
 
-INSERT INTO Visit(person_id, exhibit_id, visit_date,ticket_price) VALUES 
+INSERT INTO museum_app_visit(person_id, exhibit_id, visit_date,ticket_price) VALUES 
 (8, 2, '2024-11-1', 5),
 (1, 1, '2024-10-31', 10),
 (5, 2, '2024-11-1', 5),
@@ -29,7 +29,7 @@ INSERT INTO Visit(person_id, exhibit_id, visit_date,ticket_price) VALUES
 (6,2,'2024-11-2',5);
 
 
-INSERT INTO Item(item_name,item_description, category, price, quantity,exhibit_id, owner_id) VALUES
+INSERT INTO museum_app_item(item_name,item_description, category, price, quantity,exhibit_id, owner_id) VALUES
 ('Geoge washington toothbrush',’Geroge washington toothbrush’','10000.00',1,3,98),
 ('Starry Night',"The Famous van Gogh Painting",'Art','9.00',1,1,98),
 ('Queen Elizabeth toothbrush',"toothbrush of queen elizabeth",'history','1000.00',1,3,98),
@@ -40,11 +40,11 @@ INSERT INTO Item(item_name,item_description, category, price, quantity,exhibit_i
 ('Oldest cat sculpure',"the oldest cat sculpure",'scupluture','10.00',1,2,98);
 
 
-INSERT INTO Transaction(transaction_date, total_amount,buyer_id,seller_id) VALUES
+INSERT INTO museum_app_transation(transaction_date, total_amount,buyer_id,seller_id) VALUES
 ('2024-11-06','10.00',98,5),
 ('2024-11-01','1800.00',98,5);
 
-INSERT INTO Transaction_Item(transaction_id,item_id,quantity,price) VALUES
+INSERT INTO museum_app_trasactionitem(transaction_id,item_id,quantity,price) VALUES
 (1,66,'1',10.00),
 (2,62,'1',1780.00);
 
