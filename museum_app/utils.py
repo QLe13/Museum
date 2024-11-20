@@ -156,7 +156,7 @@ def update_cutoff_prices(exhibit_id):
     total_future_visits = calculate_future_visits(forecast, last_actual_date)
     # Retrieve the exhibit details
     exhibit = Exhibit.objects.get(id=exhibit_id)
-    # Calculate the expected future revenue from ticket sales
+    # Calculate the expected future revenue from ticket sales using the most current ticket price
     expected_revenue = calculate_expected_revenue(total_future_visits, exhibit.current_ticket_price)
     # Retrieve all items in the exhibit
     items = get_items_in_exhibit(exhibit_id)
