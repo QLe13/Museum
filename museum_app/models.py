@@ -1,5 +1,6 @@
 from django.db import models
-from pgtrigger import Trigger
+from django.db import connection
+import django.dispatch 
 
 class Person(models.Model):
     ROLE_CHOICES = (
@@ -64,49 +65,44 @@ class PopularityReport(models.Model):
     rating = models.PositiveIntegerField()
     exhibit = models.ForeignKey(Exhibit,on_delete=models.CASCADE)
 
-    class Meta:
-        triggers = [
-            pgtrigger.Trigger(
-                name = "generate_popularity_report",
-                when = pgtrigger.After,
-                operation = pgtrigger.Insert,
-                func = """
-                    DECLARE 
-                    new_quarter INT;
-                    new_year INT;
-                    start_date DATE;
-                    end_date DATE;
-                    exhibit_id INT;
-                    total_visitors INT;
-                    exhibit_visitors INT;
-    
-                    SET new_quarter = QUARTER(NEW.visit_date);
-                    SET new_year = YEAR(NEW.visit_date);
 
-                    SET start_date = DATE_SUB(NEW.visit_date, INTERVAL MOD(MONTH(NEW.visit_date) - 1, 3) MONTH);
-                    SET end_date = LAST_DAY(DATE_SUB(NEW.visit_date, INTERVAL 1 MONTH));
-                    SET exhibit_id = NEW.exhibit_id;
+def GeneratePopularityReportTrigger():
+    with connection.cursor() as cursor:
+        cursor.execute("""
+                    CREATE TRIGGER generate_popularity_report
+                    AFTER INSERT ON museum_app_visit
+                    FOR EACH ROW
+                    BEGIN
+                       DECLARE new_quarter INT;
+                       DECLARE new_year INT;
+                       DECLARE start_date DATE;
+                       DECLARE end_date DATE;
+                       DECLARE exhibit_id INT;
+                       DECLARE total_visitors INT;
+                       DECLARE exhibit_visitors INT;
 
-                    IF NOT EXISTS (
-                        SELECT 1
-                        FROM Popularity_report
-                        WHERE start_date = start_date AND end_date = end_date
-                    ) THEN
-                        -- Calculate the rating for the new Popularity_report record
-                        SELECT COUNT(*), SUM(CASE WHEN v.exhibit_id = exhibit_id THEN 1 ELSE 0 END)
-                        INTO total_visitors, exhibit_visitors
-                        FROM museum_app_visit v
-                        WHERE v.visit_date BETWEEN start_date AND end_date;
-                          -- Insert the new Popularity_report record
-                          INSERT INTO Popularity_report (title, start_date, end_date, rating, exhibit_id)
-                          VALUES (
-                          'New Popularity Report',  -- Or a dynamic title based on exhibit or other criteria
-                        start_date,
-                        end_date,
-                        exhibit_id,
-                        ROUND((exhibit_visitors / total_visitors) * 100, 2)
-                        );
+                       SET new_quarter = QUARTER(NEW.visit_date);
+                       SET new_year = YEAR(NEW.visit_date);
+                       SET start_date = DATE_SUB(NEW.visit_date, INTERVAL MOD(MONTH(NEW.visit_date) - 1, 3) MONTH);
+                       SET end_date = LAST_DAY(DATE_SUB(NEW.visit_date, INTERVAL 1 MONTH));
+                       SET exhibit_id = NEW.exhibit_id;
+                       IF NOT EXISTS (
+                          SELECT 1
+                          FROM museum_app_popularityreport
+                          WHERE start_date = start_date AND end_date = end_date
+                       ) THEN
+                          SELECT COUNT(*), SUM(CASE WHEN v.exhibit_id = exhibit_id THEN 1 ELSE 0 END)
+                          INTO total_visitors, exhibit_visitors
+                          FROM museum_app_visit v
+                          WHERE v.visit_date BETWEEN start_date AND end_date;
+                              INSERT INTO museum_app_popularityreport(title, start_date,end_date,rating, exhibit_id)
+                              VALUES (
+                              'New Popularity Report',
+                               start_date,
+                               end_date,
+                               exhibit_id,
+                               ROUND((exhibit_visitors / total_visitors) * 100, 2)
+                               );
                         END IF;
-                """,
-            )
-        ]
+                    END;
+                """)

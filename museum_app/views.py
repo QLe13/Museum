@@ -1,9 +1,10 @@
 from django.shortcuts import render
 from rest_framework import viewsets
-from .models import Person, Exhibit, Visit, Item, Transaction, TransactionItem
+from .models import Person, Exhibit, Visit, Item, Transaction, TransactionItem,PopularityReport
 from .serializers import (
     PersonSerializer, ExhibitSerializer, VisitSerializer,
-    ItemSerializer, TransactionSerializer, TransactionItemSerializer
+    ItemSerializer, TransactionSerializer, TransactionItemSerializer,
+    PopularityReportSerializer
 )
 
 class PersonViewSet(viewsets.ModelViewSet):
@@ -30,3 +31,6 @@ class TransactionItemViewSet(viewsets.ModelViewSet):
     queryset = TransactionItem.objects.all()
     serializer_class = TransactionItemSerializer
 
+class PopularityReportViewSet(viewsets.ModelViewSet):
+    queryset = PopularityReport.objects.all()
+    serializer_class = PopularityReportSerializer

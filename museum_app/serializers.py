@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Person, Exhibit, Visit, Item, Transaction, TransactionItem
+from .models import Person, Exhibit, Visit, Item, Transaction, TransactionItem,PopularityReport
 
 class PersonSerializer(serializers.ModelSerializer):
     class Meta:
@@ -29,4 +29,9 @@ class TransactionSerializer(serializers.ModelSerializer):
 class TransactionItemSerializer(serializers.ModelSerializer):
     class Meta:
         model = TransactionItem
+        fields = '__all__'
+
+class PopularityReportSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = PopularityReport
         fields = '__all__'
