@@ -38,8 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'museum_app',
-    'rest_framework',
-    'pgtrigger'
+    'rest_framework'
 ]
 
 MIDDLEWARE = [
