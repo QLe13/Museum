@@ -1,0 +1,41 @@
+{% block content %}
+<h1>Items and Cut-off Prices</h1>
+
+<!-- Regenerate Cut-off Prices Button -->
+<form action="{% url 'regenerate_cutoff_prices' %}" method="post">
+    {% csrf_token %}
+    <button type="submit">Regenerate Cut-off Prices</button>
+</form>
+
+<!-- Display Success/Error Messages -->
+{% if messages %}
+  {% for message in messages %}
+    <p {% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</p>
+  {% endfor %}
+{% endif %}
+
+<table>
+    <thead>
+        <tr>
+            <th>Item Name</th>
+            <th>Current Price</th>
+            <th>Cut-off Price</th>
+            <th>Exhibit</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for item in items %}
+        <tr>
+            <td>{{ item.item_name }}</td>
+            <td>{{ item.price }}</td>
+            <td>{{ item.cutoff_price }}</td>
+            <td>{{ item.exhibit.name }}</td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="4">No items available.</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
