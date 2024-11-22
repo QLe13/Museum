@@ -1,0 +1,36 @@
+{% block content %}
+<h1>Thing-a-bob museum Popularity Reports</h1>
+
+{% if messages %}
+    {% for messages in messages %}
+        <p {% if message.tag %} class = "{{  message.tag  }}" {% endif %}>{{ message }}</p>
+    {% endfor %}
+{% endif %}
+
+<table>
+    <thread>
+        <tr>
+            <th>Title</th>
+            <th>Start Date</th>
+            <th>End Date</th>
+            <th>Exhibit Rating</th>
+            <th>Exhibit ID</th>
+        </tr>
+    </thread>
+    <tbody>
+        {% for popularityreport in popreport %}
+        <tr>
+            <td>{{ popreport.title }}</td>
+            <td>{{ popreport.start_date }}</td>
+            <td>{{ popreport.end_date }}</td>
+            <td>{{ popreport.rating }}</td>
+            <td>{{ popreport.exhibit_id }}</td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="5">No popularity report available</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

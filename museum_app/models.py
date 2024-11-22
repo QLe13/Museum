@@ -1,7 +1,4 @@
 from django.db import models
-from django.db import connection
-import django.dispatch 
-
 class Person(models.Model):
     ROLE_CHOICES = (
         ('visitor', 'Visitor'),

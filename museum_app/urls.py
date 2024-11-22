@@ -3,7 +3,7 @@ from rest_framework import routers
 from .views import (
     PersonViewSet, ExhibitViewSet, VisitViewSet,
     ItemViewSet, TransactionViewSet, TransactionItemViewSet,
-    PopularityReportViewSet
+    PopularityReportViewSet,popularity_report_list, generate_popularity_report
 )
 
 router = routers.DefaultRouter()
@@ -17,4 +17,6 @@ router.register(r'popularity-reports',PopularityReportViewSet)
 
 urlpatterns = [
     path('', include(router.urls)),
+    path('popularityReportsList/',popularity_report_list,name = 'popularity_report_list'),
+    path('generatePopularityReports/',generate_popularity_report, name = 'generate_popularity_report')
 ]
