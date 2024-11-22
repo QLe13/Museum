@@ -39,6 +39,7 @@ class Item(models.Model):
     quantity = models.PositiveIntegerField()
     exhibit = models.ForeignKey(Exhibit, null=True, blank=True, on_delete=models.SET_NULL)
     owner = models.ForeignKey(Person, null=True, blank=True, on_delete=models.SET_NULL)
+    cutoff_price = models.DecimalField(max_digits=15, decimal_places=2, null=True)
 
     def __str__(self):
         return self.item_name
@@ -61,3 +62,36 @@ class PopularityReport(models.Model):
     end_date = models.DateField()
     rating = models.PositiveIntegerField()
     exhibit = models.ForeignKey(Exhibit,on_delete=models.CASCADE)
+
+def find_total_revenue():
+    revenuePerExhibit = {}
+    visits = Visit.objects.all()
+    # print('visits:', visits)
+    for i in visits:
+        visited = i.exhibit.name
+        revenueFromTicket = i.ticket_price
+        try:
+            x = revenuePerExhibit[visited]
+        except KeyError: # Missing
+            revenuePerExhibit.update({visited: revenueFromTicket})
+        else:
+            revenuePerExhibit[visited] += revenueFromTicket
+
+    return revenuePerExhibit
+
+def find_total_visitors():
+    visitorsPerExhibit = {}
+    visits = Visit.objects.all()
+    # print()
+    for i in visits:
+        visited = i.exhibit.name
+        try:
+            x = visitorsPerExhibit[visited]
+        except KeyError:
+            visitorsPerExhibit.update({visited: 1})
+        else:
+            visitorsPerExhibit[visited] += 1
+
+
+    return visitorsPerExhibit
+
