@@ -21,10 +21,10 @@
                     let dataTable = document.getElementById('dataTable');
                     for (let r of data){
                         let tableRow = document.createElement('tr');
-                        for (let i of r){
+                        for (let i in r){
                             let dataElem = document.createElement('td');
-                            dataElem.innerHTML = i;
-                            tableRow.appendChild(dataElem)
+                            dataElem.innerHTML = r[i];
+                            tableRow.appendChild(dataElem);
                         }
                         dataTable.appendChild(tableRow);
                     }
