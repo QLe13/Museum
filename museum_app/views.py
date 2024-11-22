@@ -1,4 +1,6 @@
 from django.shortcuts import render
+from django.http import HttpResponse
+from django.template import loader
 from rest_framework import viewsets
 from .models import Person, Exhibit, Visit, Item, Transaction, TransactionItem
 from .serializers import (
@@ -30,3 +32,8 @@ class TransactionItemViewSet(viewsets.ModelViewSet):
     queryset = TransactionItem.objects.all()
     serializer_class = TransactionItemSerializer
 
+def v1(request):
+    return HttpResponse(loader.get_template("museum_app/v1.html").render(request = request))
+
+def index(request):
+    return HttpResponse(loader.get_template("museum_app/index.html").render(request = request))
