@@ -2,7 +2,7 @@ from django.urls import path, include
 from rest_framework import routers
 from .views import (
     PersonViewSet, ExhibitViewSet, VisitViewSet,
-    ItemViewSet, TransactionViewSet, TransactionItemViewSet, v1, index, add, addResponse
+    ItemViewSet, TransactionViewSet, TransactionItemViewSet, v1, index, add, addResponse, read
 )
 
 router = routers.DefaultRouter()
@@ -18,5 +18,6 @@ urlpatterns = [
     path('v1', v1),
     path('v2', index),
     path('v2/add', add),
-    path('v2/addResponse', addResponse)
+    path('v2/addResponse', addResponse),
+    path('v2/read', read)
 ]

@@ -53,7 +53,12 @@ def addResponse(request):
         return HttpResponse(loader.get_template("museum_app/addItem.html").render(request = request))
     elif table == 'transaction':
         return HttpResponse(loader.get_template("museum_app/addTransaction.html").render(request = request))
-    elif table == 'transaction_item':
+    elif table == 'transaction-item':
         return HttpResponse(loader.get_template("museum_app/addTransactionItem.html").render(request = request))
     else:
         return HttpResponseNotFound(loader.get_template("museum_app/notFound.html").render(request = request))
+
+
+
+def read(request):
+    return HttpResponse(loader.get_template("museum_app/read.html").render(request = request))
