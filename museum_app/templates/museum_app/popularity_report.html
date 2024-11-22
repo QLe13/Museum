@@ -1,9 +1,14 @@
 {% block content %}
 <h1>Thing-a-bob museum Popularity Reports</h1>
 
+<form action ="{% url 'generate_popularity_report' %}" method="post">
+    {% csrf_token %}
+    <button type="submit">Generate Popularity Reports</button>
+</form>
+
 {% if messages %}
     {% for messages in messages %}
-        <p {% if message.tag %} class = "{{  message.tag  }}" {% endif %}>{{ message }}</p>
+        <p {% if message.tag %} class="{{  message.tag  }}" {% endif %}>{{ message }}</p>
     {% endfor %}
 {% endif %}
 
@@ -18,13 +23,13 @@
         </tr>
     </thread>
     <tbody>
-        {% for popularityreport in popreport %}
+        {% for popularityreport in popularity_reports %}
         <tr>
-            <td>{{ popreport.title }}</td>
-            <td>{{ popreport.start_date }}</td>
-            <td>{{ popreport.end_date }}</td>
-            <td>{{ popreport.rating }}</td>
-            <td>{{ popreport.exhibit_id }}</td>
+            <td>{{ popularityreport.title }}</td>
+            <td>{{ popularityreport.start_date }}</td>
+            <td>{{ popularityreport.end_date }}</td>
+            <td>{{ popularityreport.rating }}</td>
+            <td>{{ popularityreport.exhibit_id }}</td>
         </tr>
         {% empty %}
         <tr>

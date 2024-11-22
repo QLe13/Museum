@@ -42,17 +42,17 @@ def popularity_report_list(request):
     Display all the created popularity reports with their title, 
     start_date,end_date, rating and exhibit assoicated with it.
     """
-    popreports = PopularityReport.objects.all()
-    return render(request, 'museum_app/popularity_report.html',{'popularity_reports':popreports})
+    popularity_reports = PopularityReport.objects.all()
+    return render(request, 'museum_app/popularity_report.html',{'popularity_reports':popularity_reports})
 
 def generate_popularity_report(request):
     """
    Generate popularity report for each exhibit to be inserted in the popularity_report_list
     """
-    if request.method == 'Post':
-        visits = Visit.objets.all()
+    if request.method == 'POST':
+        visits = Visit.objects.all()
         for visit in visits:
-            update_popularity_report(visit.id)
+            update_popularity_report(PopularityReport,visit,True)
         messages.success(request,'Popularity Report has been generate successfully.')
     else:
         messages.error(request,'Invaild Method request')
