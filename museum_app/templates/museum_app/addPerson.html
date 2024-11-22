@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Add Person</title>
+</head>
+
+<body>
+    <h1>Add Person</h1>
+           <form action="/api/persons/" method="POST" enctype="multipart/form-data" novalidate="">
+
+                                <input type="hidden" name="csrfmiddlewaretoken" value="yf84E4eZTlCS80mguyKNf0oH4l6NXvTEC4yKdogFv2Je3SJc3z36JJh1QtmGzaQ7">
+
+
+
+
+
+      <div class="form-group">
+
+      <label class="col-sm-2 control-label ">
+        Name
+      </label>
+
+
+    <div class="col-sm-10">
+      <input name="name" class="form-control" type="text" value="">
+
+
+
+
+    </div>
+  </div>
+
+
+
+
+      <div class="form-group ">
+
+      <label class="col-sm-2 control-label ">
+        Email
+      </label>
+
+
+    <div class="col-sm-10">
+      <input name="email" class="form-control" type="email" value="">
+
+
+
+
+    </div>
+  </div>
+
+
+
+
+      <div class="form-group ">
+
+      <label class="col-sm-2 control-label ">
+        Phone
+      </label>
+
+
+    <div class="col-sm-10">
+      <input name="phone" class="form-control" type="text" value="">
+
+
+
+
+    </div>
+  </div>
+
+
+
+
+
+
+  <div class="form-group">
+
+      <label class="col-sm-2 control-label ">
+        Role
+      </label>
+
+
+    <div class="col-sm-10">
+      <select class="form-control" name="role">
+
+
+
+              <option value="visitor">Visitor</option>
+
+
+
+              <option value="staff">Staff</option>
+
+
+
+              <option value="admin">Administrator</option>
+
+
+      </select>
+
+
+
+
+    </div>
+  </div>
+
+
+
+
+                                <div class="form-actions">
+                                  <button class="btn btn-primary js-tooltip" title="" data-original-title="Make a POST request on the Person List resource">POST</button>
+                                </div>
+</form>
+
+</body>
+</html>
