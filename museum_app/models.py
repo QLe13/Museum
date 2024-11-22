@@ -40,6 +40,7 @@ class Item(models.Model):
     quantity = models.PositiveIntegerField()
     exhibit = models.ForeignKey(Exhibit, null=True, blank=True, on_delete=models.SET_NULL)
     owner = models.ForeignKey(Person, null=True, blank=True, on_delete=models.SET_NULL)
+    cutoff_price = models.DecimalField(max_digits=15, decimal_places=2, null=True)
 
     def __str__(self):
         return self.item_name
