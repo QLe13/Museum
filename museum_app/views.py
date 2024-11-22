@@ -3,11 +3,13 @@ from django.contrib import messages
 from django.http import HttpResponse
 
 from rest_framework import viewsets
-from .models import Person, Exhibit, Visit, Item, Transaction, TransactionItem, find_total_revenue, find_total_visitors
+from .models import Person, Exhibit, Visit, Item, Transaction, TransactionItem, find_total_revenue, find_total_visitors, PopularityReport
 from .serializers import (
     PersonSerializer, ExhibitSerializer, VisitSerializer,
-    ItemSerializer, TransactionSerializer, TransactionItemSerializer
+    ItemSerializer, TransactionSerializer, TransactionItemSerializer,
+    PopularityReportSerializer
 )
+from .signals import update_popularity_report
 from .utils import update_cutoff_prices
 
 class PersonViewSet(viewsets.ModelViewSet):
@@ -33,6 +35,33 @@ class TransactionViewSet(viewsets.ModelViewSet):
 class TransactionItemViewSet(viewsets.ModelViewSet):
     queryset = TransactionItem.objects.all()
     serializer_class = TransactionItemSerializer
+
+
+class PopularityReportViewSet(viewsets.ModelViewSet):
+    queryset = PopularityReport.objects.all()
+    serializer_class = PopularityReportSerializer
+
+def popularity_report_list(request):
+    """
+    Display all the created popularity reports with their title, 
+    start_date,end_date, rating and exhibit assoicated with it.
+    """
+    popularity_reports = PopularityReport.objects.all()
+    return render(request, 'museum_app/popularity_report.html',{'popularity_reports':popularity_reports})
+
+def generate_popularity_report(request):
+    """
+   Generate popularity report for each exhibit to be inserted in the popularity_report_list
+    """
+    if request.method == 'POST':
+        visits = Visit.objects.all()
+        for visit in visits:
+            update_popularity_report(PopularityReport,visit,True)
+        messages.success(request,'Popularity Report has been generate successfully.')
+    else:
+        messages.error(request,'Invaild Method request')
+    return redirect('popularity_report_list')
+        
 
 
 def total_revenue(request):

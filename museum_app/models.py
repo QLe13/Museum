@@ -1,5 +1,4 @@
 from django.db import models
-
 class Person(models.Model):
     ROLE_CHOICES = (
         ('visitor', 'Visitor'),
@@ -57,6 +56,13 @@ class TransactionItem(models.Model):
     quantity = models.PositiveIntegerField()
     price = models.DecimalField(max_digits=10, decimal_places=2)
 
+class PopularityReport(models.Model):
+    title = models.TextField(null = True, blank = True)
+    start_date = models.DateField()
+    end_date = models.DateField()
+    rating = models.PositiveIntegerField()
+    exhibit = models.ForeignKey(Exhibit,on_delete=models.CASCADE)
+
 def find_total_revenue():
     revenuePerExhibit = {}
     visits = Visit.objects.all()
@@ -88,3 +94,4 @@ def find_total_visitors():
 
 
     return visitorsPerExhibit
+

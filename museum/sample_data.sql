@@ -20,6 +20,7 @@ INSERT INTO museum_app_person (id, name, email, phone, role) VALUES
 (19, 'Isabella Thomas', 'isabella.thomas@example.com', '555-901-2345', 'visitor'),
 (20, 'Benjamin Taylor', 'benjamin.taylor@example.com', '555-012-3456', 'visitor');
 
+
 Insert into museum_app_person(id, name, email, phone, role) VALUES
 (98, 'Thing-A-bob','thingaBob','3131223333',' visitor');
 
