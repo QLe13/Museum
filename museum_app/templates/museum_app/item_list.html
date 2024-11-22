@@ -1,39 +1,44 @@
 {% block content %}
-<h1>Items and Cut-off Prices</h1>
+<h1 style="text-align: center;">Items and Cut-off Prices</h1>
 
 <!-- Regenerate Cut-off Prices Button -->
-<form action="{% url 'regenerate_cutoff_prices' %}" method="post">
+
+<form action="{% url 'regenerate_cutoff_prices' %}" method="post" style="text-align: center; margin-bottom: 20px;">
     {% csrf_token %}
-    <button type="submit">Regenerate Cut-off Prices</button>
+    <button type="submit" style="padding: 10px 20px; font-size: 16px;">Regenerate Cut-off Prices</button>
 </form>
+
 
 <!-- Display Success/Error Messages -->
 {% if messages %}
   {% for message in messages %}
-    <p {% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</p>
+    <p style="text-align: center; {% if 'success' in message.tags %}color: green;{% elif 'error' in message.tags %}color: red;{% else %}color: black;{% endif %}">
+      {{ message }}
+    </p>
   {% endfor %}
 {% endif %}
 
-<table>
+<!-- Items Table -->
+<table style="border-collapse: collapse; width: 80%; margin: auto;">
     <thead>
-        <tr>
-            <th>Item Name</th>
-            <th>Current Price</th>
-            <th>Cut-off Price</th>
-            <th>Exhibit</th>
+        <tr style="background-color: #f2f2f2;">
+            <th style="border: 1px solid #ddd; padding: 8px;">Item Name</th>
+            <th style="border: 1px solid #ddd; padding: 8px;">Current Price</th>
+            <th style="border: 1px solid #ddd; padding: 8px;">Cut-off Price</th>
+            <th style="border: 1px solid #ddd; padding: 8px;">Exhibit</th>
         </tr>
     </thead>
     <tbody>
         {% for item in items %}
         <tr>
-            <td>{{ item.item_name }}</td>
-            <td>{{ item.price }}</td>
-            <td>{{ item.cutoff_price }}</td>
-            <td>{{ item.exhibit.name }}</td>
+            <td style="border: 1px solid #ddd; padding: 8px;">{{ item.item_name }}</td>
+            <td style="border: 1px solid #ddd; padding: 8px;">${{ item.price|floatformat:2 }}</td>
+            <td style="border: 1px solid #ddd; padding: 8px;">${{ item.cutoff_price|floatformat:2 }}</td>
+            <td style="border: 1px solid #ddd; padding: 8px;">{{ item.exhibit.name }}</td>
         </tr>
         {% empty %}
         <tr>
-            <td colspan="4">No items available.</td>
+            <td colspan="4" style="border: 1px solid #ddd; padding: 8px; text-align: center;">No items available.</td>
         </tr>
         {% endfor %}
     </tbody>

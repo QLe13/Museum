@@ -36,14 +36,75 @@ class TransactionItemViewSet(viewsets.ModelViewSet):
 
 
 def total_revenue(request):
-    revenue = find_total_revenue()
-    html = '<html><body>The total revenue for each exhibit is %s' % revenue
+    revenue_list = find_total_revenue()
+    html = '''
+    <html>
+    <head>
+        <title>Total Revenue for Each Exhibit</title>
+    </head>
+    <body>
+        <h1 style="text-align: center;">Total Revenue for Each Exhibit</h1>
+        <table style="border-collapse: collapse; width: 80%; margin: auto;">
+            <tr style="background-color: #f2f2f2;">
+                <th style="border: 1px solid #ddd; padding: 8px;">Exhibit Name</th>
+                <th style="border: 1px solid #ddd; padding: 8px;">Total Revenue</th>
+            </tr>
+    '''
+
+    for revenue in revenue_list:
+        html += '''
+            <tr>
+                <td style="border: 1px solid #ddd; padding: 8px;">{exhibit_name}</td>
+                <td style="border: 1px solid #ddd; padding: 8px;">${total_revenue:.2f}</td>
+            </tr>
+        '''.format(
+            exhibit_name=revenue,
+            total_revenue=revenue_list[revenue]
+        )
+
+    html += '''
+        </table>
+    </body>
+    </html>
+    '''
+
     return HttpResponse(html)
 
 def total_visitors(request):
-    visitors = find_total_visitors()
-    html = '<html><body>The total number of visitors for each exhibit is %s' % visitors
+    visitors_list = find_total_visitors()
+    html = '''
+    <html>
+    <head>
+        <title>Total Number of Visitors for Each Exhibit</title>
+    </head>
+    <body>
+        <h1 style="text-align: center;">Total Number of Visitors for Each Exhibit</h1>
+        <table style="border-collapse: collapse; width: 80%; margin: auto;">
+            <tr style="background-color: #f2f2f2;">
+                <th style="border: 1px solid #ddd; padding: 8px;">Exhibit Name</th>
+                <th style="border: 1px solid #ddd; padding: 8px;">Total Visitors</th>
+            </tr>
+    '''
+
+    for visitor in visitors_list:
+        html += '''
+            <tr>
+                <td style="border: 1px solid #ddd; padding: 8px;">{exhibit_name}</td>
+                <td style="border: 1px solid #ddd; padding: 8px;">{total_visitors}</td>
+            </tr>
+        '''.format(
+            exhibit_name=visitor,
+            total_visitors=visitors_list[visitor]
+        )
+
+    html += '''
+        </table>
+    </body>
+    </html>
+    '''
+
     return HttpResponse(html)
+
 
 def item_list(request):
     """
