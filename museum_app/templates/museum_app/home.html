@@ -1,0 +1,21 @@
+{% extends 'museum_app/base.html' %}
+<!-- museum_app/templates/museum_app/home.html -->
+{% block content %}
+<div class="container">
+    <h1 class="text-center my-4">Welcome to the Museum App</h1>
+    <div class="list-group">
+        <a href="{% url 'popularity_report_list' %}" class="list-group-item list-group-item-action">
+            Popularity Reports List
+        </a>
+        <a href="{% url 'total_revenue' %}" class="list-group-item list-group-item-action">
+            Total Revenue per Exhibit
+        </a>
+        <a href="{% url 'total_visitors' %}" class="list-group-item list-group-item-action">
+            Total Visitors per Exhibit
+        </a>
+        <a href="{% url 'item_list' %}" class="list-group-item list-group-item-action">
+            Items and Cut-off Prices
+        </a>
+    </div>
+</div>
+{% endblock %}
