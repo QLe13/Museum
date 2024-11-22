@@ -3,7 +3,7 @@ from rest_framework import routers
 from .views import (
     PersonViewSet, ExhibitViewSet, VisitViewSet,
     ItemViewSet, TransactionViewSet, TransactionItemViewSet,
-    item_list, regenerate_cutoff_prices  # Import your function-based views
+    item_list, regenerate_cutoff_prices, total_revenue, total_visitors
 )
 
 router = routers.DefaultRouter()
@@ -16,6 +16,8 @@ router.register(r'transaction-items', TransactionItemViewSet)
 
 urlpatterns = [
     path('', include(router.urls)),
+    path('adv/revenue/exhibit', total_revenue),
+    path('adv/visitors/exhibit', total_visitors)
     path('itemsList/', item_list, name='item_list'),  # Add your function-based views here
     path('regenerate-cutoff-prices/', regenerate_cutoff_prices, name='regenerate_cutoff_prices'),
 ]

@@ -57,3 +57,34 @@ class TransactionItem(models.Model):
     quantity = models.PositiveIntegerField()
     price = models.DecimalField(max_digits=10, decimal_places=2)
 
+def find_total_revenue():
+    revenuePerExhibit = {}
+    visits = Visit.objects.all()
+    # print('visits:', visits)
+    for i in visits:
+        visited = i.exhibit.name
+        revenueFromTicket = i.ticket_price
+        try:
+            x = revenuePerExhibit[visited]
+        except KeyError: # Missing
+            revenuePerExhibit.update({visited: revenueFromTicket})
+        else:
+            revenuePerExhibit[visited] += revenueFromTicket
+
+    return revenuePerExhibit
+
+def find_total_visitors():
+    visitorsPerExhibit = {}
+    visits = Visit.objects.all()
+    # print()
+    for i in visits:
+        visited = i.exhibit.name
+        try:
+            x = visitorsPerExhibit[visited]
+        except KeyError:
+            visitorsPerExhibit.update({visited: 1})
+        else:
+            visitorsPerExhibit[visited] += 1
+
+
+    return visitorsPerExhibit
