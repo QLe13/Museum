@@ -1,0 +1,29 @@
+{% extends 'museum_app/base.html' %}
+
+{% block title %}Total Number of Visitors for Each Exhibit{% endblock %}
+
+{% block content %}
+<h1 style="text-align: center;">Total Number of Visitors for Each Exhibit</h1>
+<table style="border-collapse: collapse; width: 80%; margin: auto;">
+    <thead>
+        <tr style="background-color: #f2f2f2;">
+            <th style="border: 1px solid #ddd; padding: 8px;">Exhibit Name</th>
+            <th style="border: 1px solid #ddd; padding: 8px;">Total Visitors</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% if visitors_list %}
+            {% for visitor, count in visitors_list.items %}
+            <tr>
+                <td style="border: 1px solid #ddd; padding: 8px;">{{ visitor }}</td>
+                <td style="border: 1px solid #ddd; padding: 8px;">{{ count }}</td>
+            </tr>
+            {% endfor %}
+        {% else %}
+            <tr>
+                <td colspan="2" style="border: 1px solid #ddd; padding: 8px; text-align: center;">No visitors data available.</td>
+            </tr>
+        {% endif %}
+    </tbody>
+</table>
+{% endblock %}

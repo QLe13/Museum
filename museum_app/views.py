@@ -66,73 +66,12 @@ def generate_popularity_report(request):
 
 def total_revenue(request):
     revenue_list = find_total_revenue()
-    html = '''
-    <html>
-    <head>
-        <title>Total Revenue for Each Exhibit</title>
-    </head>
-    <body>
-        <h1 style="text-align: center;">Total Revenue for Each Exhibit</h1>
-        <table style="border-collapse: collapse; width: 80%; margin: auto;">
-            <tr style="background-color: #f2f2f2;">
-                <th style="border: 1px solid #ddd; padding: 8px;">Exhibit Name</th>
-                <th style="border: 1px solid #ddd; padding: 8px;">Total Revenue</th>
-            </tr>
-    '''
-
-    for revenue in revenue_list:
-        html += '''
-            <tr>
-                <td style="border: 1px solid #ddd; padding: 8px;">{exhibit_name}</td>
-                <td style="border: 1px solid #ddd; padding: 8px;">${total_revenue:.2f}</td>
-            </tr>
-        '''.format(
-            exhibit_name=revenue,
-            total_revenue=revenue_list[revenue]
-        )
-
-    html += '''
-        </table>
-    </body>
-    </html>
-    '''
-
-    return HttpResponse(html)
+    print(revenue_list)
+    return render(request, 'museum_app/total_revenue.html', {'revenue_list':revenue_list})
 
 def total_visitors(request):
     visitors_list = find_total_visitors()
-    html = '''
-    <html>
-    <head>
-        <title>Total Number of Visitors for Each Exhibit</title>
-    </head>
-    <body>
-        <h1 style="text-align: center;">Total Number of Visitors for Each Exhibit</h1>
-        <table style="border-collapse: collapse; width: 80%; margin: auto;">
-            <tr style="background-color: #f2f2f2;">
-                <th style="border: 1px solid #ddd; padding: 8px;">Exhibit Name</th>
-                <th style="border: 1px solid #ddd; padding: 8px;">Total Visitors</th>
-            </tr>
-    '''
-
-    for visitor in visitors_list:
-        html += '''
-            <tr>
-                <td style="border: 1px solid #ddd; padding: 8px;">{exhibit_name}</td>
-                <td style="border: 1px solid #ddd; padding: 8px;">{total_visitors}</td>
-            </tr>
-        '''.format(
-            exhibit_name=visitor,
-            total_visitors=visitors_list[visitor]
-        )
-
-    html += '''
-        </table>
-    </body>
-    </html>
-    '''
-
-    return HttpResponse(html)
+    return render(request, 'museum_app/total_visitors.html', {'visitors_list': visitors_list})
 
 
 def item_list(request):
@@ -156,3 +95,9 @@ def regenerate_cutoff_prices(request):
         messages.error(request, 'Invalid request method.')
     return redirect('item_list')
 
+
+def home(request):
+    """
+    Renders the main page with links to other pages.
+    """
+    return render(request, 'museum_app/home.html')

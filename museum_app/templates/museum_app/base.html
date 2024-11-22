@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Museum App</title>
+    <!-- Include Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    {% load static %}
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <a class="navbar-brand" href="{% url 'home' %}">Museum App</a>
+      <div class="collapse navbar-collapse">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'popularity_report_list' %}">Popularity Reports</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'total_revenue' %}">Revenue per Exhibit</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'total_visitors' %}">Visitors per Exhibit</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'item_list' %}">Items and Cut-off Prices</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container">
+        {% block content %}
+        {% endblock %}
+    </div>
+
+    <!-- Include Bootstrap JS and dependencies if needed -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
