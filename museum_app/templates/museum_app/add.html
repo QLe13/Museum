@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Add Data | Thing-A-Bob Museum</title>
+</head>
+<body>
+    <h1>Add Data</h1>
+    <p>What table would you like to add data to?</p>
+    <form action="/api/v2/addResponse" method="get">
+        <select name="table">
+            <option value="">--select--</option>
+            <option>Exhibit</option>
+            <option>Item</option>
+            <option>Person</option>
+            <option>Transaction</option>
+            <option value="transaction-item">TransactionItem</option>
+            <option>Visit</option>
+        </select>
+        <button type="submit">Submit</button>
+    </form>
+</body>
+
+</html>

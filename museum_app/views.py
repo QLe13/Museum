@@ -1,3 +1,5 @@
+from django.http import HttpResponse, HttpResponseNotFound
+from django.template import loader
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.http import HttpResponse
@@ -36,6 +38,36 @@ class TransactionItemViewSet(viewsets.ModelViewSet):
     queryset = TransactionItem.objects.all()
     serializer_class = TransactionItemSerializer
 
+def v1(request):
+    return HttpResponse(loader.get_template("museum_app/v1.html").render(request = request))
+
+def index(request):
+    return HttpResponse(loader.get_template("museum_app/index.html").render(request = request))
+
+def add(request):
+    return HttpResponse(loader.get_template("museum_app/add.html").render(request = request))
+
+def addResponse(request):
+    table = request.GET['table'].lower()
+    if table.lower() == 'person':
+        return HttpResponse(loader.get_template("museum_app/addPerson.html").render(request = request))
+    elif table == 'exhibit':
+        return HttpResponse(loader.get_template("museum_app/addExhibit.html").render(request = request))
+    elif table == 'visit':
+        return HttpResponse(loader.get_template("museum_app/addVisit.html").render(request = request))
+    elif table == 'item':
+        return HttpResponse(loader.get_template("museum_app/addItem.html").render(request = request))
+    elif table == 'transaction':
+        return HttpResponse(loader.get_template("museum_app/addTransaction.html").render(request = request))
+    elif table == 'transaction-item':
+        return HttpResponse(loader.get_template("museum_app/addTransactionItem.html").render(request = request))
+    else:
+        return HttpResponseNotFound(loader.get_template("museum_app/notFound.html").render(request = request))
+
+
+
+def read(request):
+    return HttpResponse(loader.get_template("museum_app/read.html").render(request = request))
 
 class PopularityReportViewSet(viewsets.ModelViewSet):
     queryset = PopularityReport.objects.all()
@@ -61,7 +93,7 @@ def generate_popularity_report(request):
     else:
         messages.error(request,'Invaild Method request')
     return redirect('popularity_report_list')
-        
+
 
 
 def total_revenue(request):

@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Add Transaction Item</title>
+</head>
+
+<body>
+    <h1>Add Transaction Item</h1>
+
+
+                          <form action="/api/transaction-items/" method="POST" enctype="multipart/form-data" class="form-horizontal" novalidate="">
+
+                              <input type="hidden" name="csrfmiddlewaretoken" value="A1j6akUIc7T5N9v8nRGfb0IPUZ5zF3fcWUIJoJOI9fPbUyMRzgS2NniEeuoGoHpt">
+
+
+
+
+
+    <div class="form-group ">
+
+    <label class="col-sm-2 control-label ">
+      Quantity
+    </label>
+
+
+  <div class="col-sm-10">
+    <input name="quantity" class="form-control" type="number" value="">
+
+
+
+
+  </div>
+</div>
+
+
+
+
+    <div class="form-group ">
+
+    <label class="col-sm-2 control-label ">
+      Price
+    </label>
+
+
+  <div class="col-sm-10">
+    <input name="price" class="form-control" type="text" value="">
+
+
+
+
+  </div>
+</div>
+
+
+
+
+
+
+<div class="form-group">
+
+    <label class="col-sm-2 control-label ">
+      Transaction
+    </label>
+
+
+  <div class="col-sm-10">
+    <select class="form-control" name="transaction">
+
+
+
+            <option value="1">Transaction object (1)</option>
+
+
+
+            <option value="2">Transaction object (2)</option>
+
+
+    </select>
+
+
+
+
+  </div>
+</div>
+
+
+
+
+
+
+<div class="form-group">
+
+    <label class="col-sm-2 control-label ">
+      Item
+    </label>
+
+
+  <div class="col-sm-10">
+    <select class="form-control" name="item">
+
+
+
+            <option value="1">Geoge washington toothbrush</option>
+
+
+
+            <option value="2">Starry Night</option>
+
+
+
+            <option value="3">Queen Elizabeth toothbrush</option>
+
+
+
+            <option value="4">Tabby Cats</option>
+
+
+
+            <option value="5">calico cat</option>
+
+
+
+            <option value="6">Toilet</option>
+
+
+
+            <option value="7">van gogh portiat</option>
+
+
+
+            <option value="8">Oldest cat sculpure</option>
+
+
+    </select>
+
+
+
+
+  </div>
+</div>
+
+
+
+
+                              <div class="form-actions">
+                                <button class="btn btn-primary js-tooltip" title="" data-original-title="Make a POST request on the Transaction Item List resource">POST</button>
+                              </div>
+
+                          </form>
+
+ </body>
+ </html>

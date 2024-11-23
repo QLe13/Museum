@@ -61,6 +61,9 @@ venv.bak/
 # PyCharm settings
 .idea/
 
+# Local settings
+museum/settings.py
+
 # MacOS files
 .DS_Store
 

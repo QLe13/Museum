@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Read Data | Thing-A-Bob Museum</title>
+    <script>
+        "use strict";
+        console.log("loaded");
+        const getData = () => {
+            console.log("start");
+            const formOption = document.getElementById("select");
+            console.log("input:" + formOption.value);
+            const route = "/api/" + formOption.value.toLowerCase() + "s/?format=json";
+            console.log("route:" + route);
+            fetch(route, {
+                method: 'GET',
+
+            }).then(res => res.json()).then(data => {
+                if (data){
+                    let dataTable = document.getElementById('dataTable');
+                    for (let r of data){
+                        let tableRow = document.createElement('tr');
+                        for (let i in r){
+                            let dataElem = document.createElement('td');
+                            dataElem.innerHTML = r[i];
+                            tableRow.appendChild(dataElem);
+                        }
+                        dataTable.appendChild(tableRow);
+                    }
+                }else{
+                    console.log('error fetch');
+                }
+            });
+            return 1;
+        }
+    </script>
+</head>
+<body>
+    <h1>Read Data</h1>
+    <p>What table would you like to read data from?</p>
+
+        <select name="table" id="select">
+            <option value="">--select--</option>
+            <option>Exhibit</option>
+            <option>Item</option>
+            <option>Person</option>
+            <option>Transaction</option>
+            <option value="transaction-item">TransactionItem</option>
+        </select>
+        <button onclick="getData()">Get</button>
+        <table id="dataTable"></table>
+</body>
+
+</html>

@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Add Visit</title>
+</head>
+
+<body>
+    <h1>Add Visit</h1>
+
+                          <form action="/api/visits/" method="POST" enctype="multipart/form-data" class="form-horizontal" novalidate="">
+
+                              <input type="hidden" name="csrfmiddlewaretoken" value="UYjO6s1Ymzc87N0JBEyGyfaJhcvI4VZ7gRIrkRVYjH8eechsN3KtaCKyBHOPNz9o">
+
+
+
+
+
+    <div class="form-group ">
+
+    <label class="col-sm-2 control-label ">
+      Visit date
+    </label>
+
+
+  <div class="col-sm-10">
+    <input name="visit_date" class="form-control" type="date" value="">
+
+
+
+
+  </div>
+</div>
+
+
+
+
+    <div class="form-group ">
+
+    <label class="col-sm-2 control-label ">
+      Ticket price
+    </label>
+
+
+  <div class="col-sm-10">
+    <input name="ticket_price" class="form-control" type="text" value="">
+
+
+
+
+  </div>
+</div>
+
+
+
+
+
+
+<div class="form-group">
+
+    <label class="col-sm-2 control-label ">
+      Person
+    </label>
+
+
+  <div class="col-sm-10">
+    <select class="form-control" name="person">
+
+
+
+            <option value="1">Sannvah</option>
+
+
+
+            <option value="2">Quang</option>
+
+
+
+            <option value="3">David</option>
+
+
+
+            <option value="4">test</option>
+
+
+
+            <option value="5">Jacob</option>
+
+
+
+            <option value="6">Jack</option>
+
+
+
+            <option value="7">Alex</option>
+
+
+
+            <option value="8">Belle</option>
+
+
+
+            <option value="9">ren</option>
+
+
+
+            <option value="10">Jonas</option>
+
+
+
+            <option value="98">Thing-A-bob</option>
+
+
+    </select>
+
+
+
+
+  </div>
+</div>
+
+
+
+
+
+
+<div class="form-group">
+
+    <label class="col-sm-2 control-label ">
+      Exhibit
+    </label>
+
+
+  <div class="col-sm-10">
+    <select class="form-control" name="exhibit">
+
+
+
+            <option value="1">1800 paintings</option>
+
+
+
+            <option value="2">Cats sculptures</option>
+
+
+
+            <option value="3">Collection of used toothbrushes</option>
+
+
+    </select>
+
+
+
+
+  </div>
+</div>
+
+
+
+
+                              <div class="form-actions">
+                                <button class="btn btn-primary js-tooltip" title="" data-original-title="Make a POST request on the Visit List resource">POST</button>
+                              </div>
+
+                          </form>
+</body>
+</html>
