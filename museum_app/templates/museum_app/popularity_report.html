@@ -1,0 +1,42 @@
+{% extends 'museum_app/base.html' %}
+{% block content %}
+<h1>Thing-a-bob museum Popularity Reports</h1>
+
+<form action ="{% url 'generate_popularity_report' %}" method="post">
+    {% csrf_token %}
+    <button type="submit">Generate Popularity Reports</button>
+</form>
+
+{% if messages %}
+    {% for messages in messages %}
+        <p {% if message.tag %} class="{{  message.tag  }}" {% endif %}>{{ message }}</p>
+    {% endfor %}
+{% endif %}
+
+<table>
+    <thread>
+        <tr>
+            <th>Title</th>
+            <th>Start Date</th>
+            <th>End Date</th>
+            <th>Exhibit Rating</th>
+            <th>Exhibit ID</th>
+        </tr>
+    </thread>
+    <tbody>
+        {% for popularityreport in popularity_reports %}
+        <tr>
+            <td>{{ popularityreport.title }}</td>
+            <td>{{ popularityreport.start_date }}</td>
+            <td>{{ popularityreport.end_date }}</td>
+            <td>{{ popularityreport.rating }}</td>
+            <td>{{ popularityreport.exhibit_id }}</td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="5">No popularity report available</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

@@ -13,7 +13,6 @@ db.sqlite3
 media
 
 # If you are using MySQL, you might exclude database dumps
-*.sql
 *.sql.gz
 
 # If you are using environment variables in a .env file
@@ -143,5 +142,8 @@ htmlcov/
 
 # PEP 582; used by e.g. github.com/David-OConnor/pyflow
 __pypackages__/
+
+# Local database settings
+museum/settings.py
 
 # End of https://www.toptal.com/developers/gitignore/api/python,django
