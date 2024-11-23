@@ -81,7 +81,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'museum_db',      # Replace with your DB name
         'USER': 'root',           # Replace with your DB username
-        'PASSWORD': '@Chi3v3r$',       # Replace with your DB password
+        'PASSWORD': 'root',       # Replace with your DB password
         'HOST': 'localhost',
         'PORT': '3306',
     }
