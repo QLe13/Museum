@@ -1,11 +1,5 @@
-<!DOCTYPE html>
-<html>
-
-<head>
-    <meta charset="UTF-8">
-    <title>Add Data | Thing-A-Bob Museum</title>
-</head>
-<body>
+{% extends 'museum_app/base.html' %}
+{% block content %}
     <h1>Add Data</h1>
     <p>What table would you like to add data to?</p>
     <form action="/api/v2/addResponse" method="get">
@@ -20,6 +14,4 @@
         </select>
         <button type="submit">Submit</button>
     </form>
-</body>
-
-</html>
+{% endblock %}
