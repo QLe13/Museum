@@ -60,6 +60,17 @@ pluggy
 prompt-toolkit
 psutil
 ptyprocess
+pandas
+parso 
+pexpect 
+pickleshare 
+pillow==10.2.0
+platformdirs
+pluggy 
+prompt-toolkit 
+prophet
+psutil 
+ptyprocess
 pure-eval
 py4j==0.10.9.7
 pycosat
