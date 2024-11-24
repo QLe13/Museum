@@ -1,11 +1,5 @@
-<!DOCTYPE html>
-
-<head>
-    <meta charset="UTF-8">
-    <title>Add Item</title>
-</head>
-
-<body>
+{% extends 'museum_app/base.html' %}
+{% block content %}
     <h1>Add Item</h1>
 
                       <div class="tab-pane active" id="post-object-form">
@@ -124,22 +118,13 @@
 
 <div class="col-sm-10">
   <select class="form-control" name="exhibit">
-
-      <option value="" selected="">--------</option>
-
-
-
-          <option value="1">1800 paintings</option>
+    <option value="" selected="">--------</option>
+  {% for i in exhibits %}
 
 
+          <option value="{{i.id}}">{{i.name}}</option>
 
-          <option value="2">Cats sculptures</option>
-
-
-
-          <option value="3">Collection of used toothbrushes</option>
-
-
+    {% endfor %}
   </select>
 
 
@@ -224,56 +209,15 @@
                             <div class="form-actions">
                               <button class="btn btn-primary js-tooltip" title="" data-original-title="Make a POST request on the Item List resource">POST</button>
                             </div>
-                          </fieldset>
+
                         </form>
 
                     </div>
 
 
-                  <div class="tab-pane" id="post-generic-content-form">
-
-                      <form action="/api/items/" method="POST" class="form-horizontal">
-                        <fieldset>
 
 
 
-<div class="form-group">
-  <label for="id__content_type" class="col-sm-2 control-label">Media type:</label>
-  <div class="col-sm-10">
-    <select name="_content_type" data-override="content-type" id="id__content_type" class="form-control">
-<option value="application/json" selected="">application/json</option>
-
-<option value="application/x-www-form-urlencoded">application/x-www-form-urlencoded</option>
-
-<option value="multipart/form-data">multipart/form-data</option>
-
-</select>
-    <span class="help-block"></span>
-  </div>
-</div>
-
-<div class="form-group">
-  <label for="id__content" class="col-sm-2 control-label">Content:</label>
-  <div class="col-sm-10">
-    <textarea name="_content" cols="40" rows="10" data-override="content" id="id__content" class="form-control">{
-  "item_name": "",
-  "item_description": "",
-  "category": "",
-  "price": null,
-  "quantity": null,
-  "exhibit": null,
-  "owner": null
-}</textarea>
-    <span class="help-block"></span>
-  </div>
-</div>
 
 
-                          <div class="form-actions">
-                            <button class="btn btn-primary js-tooltip" title="" data-original-title="Make a POST request on the Item List resource">POST</button>
-                          </div>
-                      </form>
-
-                  </div>
-</body>
-</html>
+{% endblock %}

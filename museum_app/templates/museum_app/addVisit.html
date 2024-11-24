@@ -133,20 +133,13 @@
 
   <div class="col-sm-10">
     <select class="form-control" name="exhibit">
+      <option value="" selected="">--------</option>
+    {% for i in exhibits %}
 
 
+            <option value="{{i.id}}">{{i.name}}</option>
 
-            <option value="1">1800 paintings</option>
-
-
-
-            <option value="2">Cats sculptures</option>
-
-
-
-            <option value="3">Collection of used toothbrushes</option>
-
-
+      {% endfor %}
     </select>
 
 

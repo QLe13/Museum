@@ -49,14 +49,15 @@ def add(request):
 
 def addResponse(request):
     table = request.GET['table'].lower()
+    data = {'exhibits': Exhibit.objects.all()}
     if table.lower() == 'person':
         return HttpResponse(loader.get_template("museum_app/addPerson.html").render(request = request))
     elif table == 'exhibit':
         return HttpResponse(loader.get_template("museum_app/addExhibit.html").render(request = request))
     elif table == 'visit':
-        return HttpResponse(loader.get_template("museum_app/addVisit.html").render(request = request))
+        return HttpResponse(loader.get_template("museum_app/addVisit.html").render(request = request, context=data))
     elif table == 'item':
-        return HttpResponse(loader.get_template("museum_app/addItem.html").render(request = request))
+        return HttpResponse(loader.get_template("museum_app/addItem.html").render(request = request, context= data))
     elif table == 'transaction':
         return HttpResponse(loader.get_template("museum_app/addTransaction.html").render(request = request))
     elif table == 'transaction-item':

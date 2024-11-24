@@ -18,10 +18,10 @@ router.register(r'popularity-reports',PopularityReportViewSet)
 
 urlpatterns = [
     path('v1', v1),
-    path('v2', index),
-    path('v2/add', add, name = 'add_data'),
-    path('v2/addResponse', addResponse),
-    path('v2/read', read, name = "read_data"),
+    path('api/v2', index),
+    path('api/v2/add', add, name = 'add_data'),
+    path('api/v2/addResponse', addResponse),
+    path('api/v2/read', read, name = "read_data"),
     path('', home, name='home'),
     path('api/', include(router.urls)),
     path('popularityReportsList/',popularity_report_list,name = 'popularity_report_list'),
