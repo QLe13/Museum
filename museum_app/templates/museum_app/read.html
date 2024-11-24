@@ -19,6 +19,7 @@
             }).then(res => res.json()).then(data => {
                 if (data){
                     let dataTable = document.getElementById('dataTable');
+                    document.getElementById('dataTable').innerHTML = '';
                     for (let r of data){
                         let tableRow = document.createElement('tr');
                         for (let i in r){
@@ -44,6 +45,7 @@
             <option value="">--select--</option>
             <option>Exhibit</option>
             <option>Item</option>
+            <option>Visit</option>
             <option>Person</option>
             <option>Transaction</option>
             <option value="transaction-item">TransactionItem</option>
