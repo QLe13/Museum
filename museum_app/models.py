@@ -68,7 +68,7 @@ def find_total_revenue():
     visits = Visit.objects.all()
     # print('visits:', visits)
     for i in visits:
-        visited = i.exhibit.name
+        visited = i.exhibit.id
         revenueFromTicket = i.ticket_price
         try:
             x = revenuePerExhibit[visited]
@@ -84,7 +84,7 @@ def find_total_visitors():
     visits = Visit.objects.all()
     # print()
     for i in visits:
-        visited = i.exhibit.name
+        visited = i.exhibit.id
         try:
             x = visitorsPerExhibit[visited]
         except KeyError:
@@ -94,4 +94,3 @@ def find_total_visitors():
 
 
     return visitorsPerExhibit
-

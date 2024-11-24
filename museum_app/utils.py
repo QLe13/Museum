@@ -22,7 +22,9 @@ def get_visit_data(exhibit_id):
         .order_by('visit_date')
     )
     # Convert the QuerySet to a pandas DataFrame
+    print("get visit data-visits", visits)
     gyatt = pd.DataFrame(list(visits))
+    print("get visit data- gyatt", gyatt)
     # general yielding attentive tentitve trace
     # Rename columns to 'ds' and 'y' as expected by Prophet
     gyatt['ds'] = pd.to_datetime(gyatt['visit_date'])
@@ -146,10 +148,13 @@ def update_cutoff_prices(exhibit_id):
     """
     # Retrieve visit data for the exhibit
     gyatt = get_visit_data(exhibit_id)
+    print("cutoff visit data", gyatt)
     # Ensure the date range is complete
     gyatt = complete_date_range(gyatt)
+    print("cutoff- date range", gyatt)
     # Forecast future visits using Prophet
     forecast = forecast_visits(gyatt)
+    print("cutoff- forecast", forecast)
     # Get the date of the last actual visit
     last_actual_date = gyatt['ds'].max()
     # Calculate the total predicted future visits
