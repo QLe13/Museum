@@ -2,7 +2,7 @@ from django.urls import path, include
 from rest_framework import routers
 from .views import (
     PersonViewSet, ExhibitViewSet, VisitViewSet,
-    ItemViewSet, TransactionViewSet, TransactionItemViewSet, v1, index, add, addResponse, read,
+    ItemViewSet, TransactionViewSet, TransactionItemViewSet, v1, index, add, addResponse, read,update, updateResponse, updateExhibit,
     PopularityReportViewSet, popularity_report_list, generate_popularity_report,
     item_list, regenerate_cutoff_prices, total_revenue, total_visitors, home
 )
@@ -22,7 +22,7 @@ urlpatterns = [
     path('api/v2/add', add, name = 'add_data'),
     path('api/v2/addResponse', addResponse),
     path('api/v2/read', read, name = "read_data"),
-     path('api/v2/update', update, name= "update_data"),
+    path('api/v2/update', update, name= "update_data"),
     path('api/v2/updateResponse', updateResponse),
     path('api/v2/updateData/exhibit', updateExhibit),
     path('', home, name='home'),
