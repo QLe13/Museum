@@ -8,9 +8,9 @@
         "use strict";
         console.log("loaded");
         const getData = () => {
-            console.log("start");
+            // console.log("start");
             const formOption = document.getElementById("select");
-            console.log("input:" + formOption.value);
+            // console.log("input:" + formOption.value);
             const route = "/api/" + formOption.value.toLowerCase() + "s/?format=json";
             console.log("route:" + route);
             fetch(route, {

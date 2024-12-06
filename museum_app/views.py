@@ -70,6 +70,46 @@ def addResponse(request):
 def read(request):
     return HttpResponse(loader.get_template("museum_app/read.html").render(request = request))
 
+def update(request):
+    return HttpResponse(loader.get_template("museum_app/update.html").render(request = request))
+
+def updateResponse(request):
+    table = request.GET['table'].lower()
+    data = {'exhibits': Exhibit.objects.all()}
+    if table.lower() == 'person':
+        return HttpResponse(loader.get_template("museum_app/updatePerson.html").render(request = request))
+    elif table == 'exhibit':
+        return HttpResponse(loader.get_template("museum_app/updateExhibit.html").render(request = request))
+    elif table == 'visit':
+        return HttpResponse(loader.get_template("museum_app/updateVisit.html").render(request = request, context = data))
+    elif table == 'item':
+        return HttpResponse(loader.get_template("museum_app/updateItem.html").render(request = request, context = data))
+    elif table == 'transaction':
+        return HttpResponse(loader.get_template("museum_app/updateTransaction.html").render(request = request))
+    elif table == 'transaction-item':
+        return HttpResponse(loader.get_template("museum_app/updateTransactionItem.html").render(request = request))
+    else:
+        return HttpResponseNotFound(loader.get_template("museum_app/notFound.html").render(request = request))
+
+def updateExhibit(request):
+    # print(request.POST)
+    # print(request)
+    newData = request.POST
+    oldData = Exhibit.objects.get(pk=newData['id'])
+    for i in newData.keys():
+        for k in oldData.keys():
+            if i == k:
+                if newData[i] != oldData[k]:
+                    print('New data:', newData[i])
+
+    return HttpResponse(content='hello world')
+
+def delete(request):
+    return HttpResponse("not implemented")
+
+def deleteResponse(request):
+    return HttpResponse("not implemented")
+
 class PopularityReportViewSet(viewsets.ModelViewSet):
     queryset = PopularityReport.objects.all()
     serializer_class = PopularityReportSerializer
