@@ -5,7 +5,7 @@ from .views import (
     ItemViewSet, TransactionViewSet, TransactionItemViewSet,
     PopularityReportViewSet,popularity_report_list, generate_popularity_report,
     item_list, regenerate_cutoff_prices, total_revenue, total_visitors,
-    home
+    home, crud, delete_object, edit_object, add_object
 )
 
 router = routers.DefaultRouter()
@@ -24,6 +24,10 @@ urlpatterns = [
     path('generatePopularityReports/',generate_popularity_report, name = 'generate_popularity_report'),
     path('adv/revenue/exhibit', total_revenue, name = 'total_revenue'),
     path('adv/visitors/exhibit', total_visitors, name = 'total_visitors'),
-    path('itemsList/', item_list, name='item_list'),  # Add your function-based views here
+    path('itemsList/', item_list, name='item_list'),
     path('regenerate-cutoff-prices/', regenerate_cutoff_prices, name='regenerate_cutoff_prices'),
+    path('viewData/',crud, name = 'crud'),
+    path('edit/<str:model>/<int:pk>/', edit_object, name='edit_object'),
+    path('delete/<str:model>/<int:pk>/', delete_object, name='delete_object'),
+    path('add/<str:model>/', add_object, name='add_object'),
 ]
