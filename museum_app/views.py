@@ -67,12 +67,6 @@ def addResponse(request):
     else:
         return HttpResponseNotFound(loader.get_template("museum_app/notFound.html").render(request = request))
 
-def update(request):
-    return HttpResponse(loader.get_template("museum_app/update.html").render(request = request))
-
-def updateResponse(request):
-    table = request.GET['table'].lower()
-    data = {'exhibits':Exhibit.objects.all()} #this reperesent the exhibit_id that will be passed into the ht.getml
 
 def updateExhibit(request,ID):
     exhibit = Exhibit.get(id = ID)
@@ -84,7 +78,7 @@ def updateExhibit(request,ID):
             return redirect('templates/home.html')
         
     context = {'form':form}
-    return render(request,'templates/updateExhibit.html',context)
+    return render(request,'templates/exhibit_form.html',context)
 
 
     
