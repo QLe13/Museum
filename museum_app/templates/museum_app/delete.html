@@ -6,26 +6,30 @@
     <title>Delete Data | Thing-A-Bob Museum</title>
     <script>
         "use strict";
-        const deleteConfirm = () => {
-            firstButton = document.getElementById('deleteConfirm');
-            confirmation = document.getElementById('delete');
-            cancelButton = document.getElementById('back');
-            firstButton.addAttribute('hidden');
+        const confirm = () => {
+            const firstButton = document.getElementById('deleteConfirm');
+            console.log(firstButton);
+            const confirmation = document.getElementById('delete');
+            const cancelButton = document.getElementById('back');
+            firstButton.setAttribute('hidden', '');
             confirmation.removeAttribute('hidden');
             cancelButton.removeAttribute('hidden');
         }
         const goBack = () => {
-            cancelButton.addAttribute('hidden');
-            confirmation.addAttribute('hidden');
+            const firstButton = document.getElementById('deleteConfirm');
+            const confirmation = document.getElementById('delete');
+            const cancelButton = document.getElementById('back');
+            cancelButton.setAttribute('hidden', '');
+            confirmation.setAttribute('hidden', '');
             firstButton.removeAttribute('hidden');
         }
     </script>
 </head>
-
 <body>
     <h1>Delete Data</h1>
     <p>What table would you like to delete data from?</p>
     <form action="/api/v2/deleteResponse" method="post">
+        {% csrf_token %}
         <select name="table" id="select">
             <option value="">--select--</option>
             <option>Exhibit</option>
@@ -34,9 +38,17 @@
             <option>Transaction</option>
             <option value="transaction-item">TransactionItem</option>
         </select>
-        <button id="deleteConfirm">Delete</button>
+        <br><br>
+        ID of the row you want to delete: <input type="text" id="row" name="row">
+        <br><br>
+        <button id="deleteConfirm" type="button" onclick="confirm()">Delete</button>
+        <br><br>
         <button type="submit" id="delete" hidden="">Confirm Delete</button>
-        <button id="back" hidden="">Cancel</button>
+        <br><br>
+        <button id="back" hidden="" onclick="goBack()" type="button">Cancel</button>
+        <div id="dataDiv" hidden="">
+            <p>The data you're about to delete:</p>
+        </div>
     </form>
 
 </body>

@@ -1,25 +1,43 @@
-<!DOCTYPE html>
-<html>
-
-<head>
-    <meta charset="UTF-8">
-    <title>Read Data | Thing-A-Bob Museum</title>
+{% extends 'museum_app/base.html' %}
+<!-- museum_app/templates/museum_app/home.html -->
+{% block content %}
+    <style>
+        table {
+            border: 1px solid black;
+        }
+        th {
+            border: 1px solid black;
+        }
+        td {
+            border: 1px solid black;
+            padding: 5px;
+        }
+    </style>
     <script>
         "use strict";
-        console.log("loaded");
+        // console.log("loaded");
         const getData = () => {
             // console.log("start");
             const formOption = document.getElementById("select");
             // console.log("input:" + formOption.value);
             const route = "/api/" + formOption.value.toLowerCase() + "s/?format=json";
-            console.log("route:" + route);
+            // console.log("route:" + route);
             fetch(route, {
                 method: 'GET',
 
             }).then(res => res.json()).then(data => {
                 if (data){
+                    // console.log(data);
+                    const first = data[0];
+                    // console.log('first' + first);
+                    let thead = document.createElement('thead');
+                    for (let i in first){
+                        let tableHeadCell = document.createElement('th');
+                        tableHeadCell.innerHTML = i;
+                        thead.appendChild(tableHeadCell);
+                    }
                     let dataTable = document.getElementById('dataTable');
-                    document.getElementById('dataTable').innerHTML = '';
+                    document.getElementById('dataTable').innerHTML = thead.innerHTML;
                     for (let r of data){
                         let tableRow = document.createElement('tr');
                         for (let i in r){
@@ -36,8 +54,6 @@
             return 1;
         }
     </script>
-</head>
-<body>
     <h1>Read Data</h1>
     <p>What table would you like to read data from?</p>
 
@@ -53,7 +69,4 @@
         <button onclick="getData()">Get</button>
         <table id="dataTable"></table>
 
-    <form action="/" method="get"><button type="submit">Home</button></form>
-</body>
-
-</html>
+{% endblock %}

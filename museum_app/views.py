@@ -94,6 +94,7 @@ def updateResponse(request):
 def updateExhibit(request):
     # print(request.POST)
     # print(request)
+    # Not working yet
     newData = request.POST
     oldData = Exhibit.objects.get(pk=newData['id'])
     for i in newData.keys():
@@ -105,11 +106,42 @@ def updateExhibit(request):
     return HttpResponse(content='hello world')
 
 def delete(request):
-    return HttpResponse("not implemented")
+    return HttpResponse(loader.get_template("museum_app/delete.html").render(request = request))
 
 def deleteResponse(request):
-    return HttpResponse("not implemented")
+    data = request.POST
+    print(data)
+    dataTable_ = data['table']
+    dataTable = dataTable_.lower()
+    queryTable = ''
+    if dataTable == 'exhibit':
+        queryTable = Exhibit
+    elif dataTable == 'item':
+        queryTable = Item
+    elif dataTable == 'person':
+        queryTable = Person
+    elif dataTable == 'transaction':
+        queryTable = Transaction
+    elif dataTable == 'transaction-item':
+        queryTable = TransactionItem
+    elif dataTable == 'visit':
+        queryTable = Visit
+    else:
+        return HttpResponseNotFound(loader.get_template("museum_app/notFound.html").render(request = request))
 
+    row = data['row']
+    try:
+        oldRow = queryTable.objects.get(pk=row)
+    except queryTable.DoesNotExist:
+        return HttpResponseNotFound(loader.get_template("museum_app/notFound.html").render(request = request))
+
+    oldRow.delete()
+    return HttpResponse('row with id: ' + row + ' of ' + dataTable_ + ' has been deleted.')
+
+
+########################
+# Advanced Functionality
+########################
 class PopularityReportViewSet(viewsets.ModelViewSet):
     queryset = PopularityReport.objects.all()
     serializer_class = PopularityReportSerializer
