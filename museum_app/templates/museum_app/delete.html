@@ -23,6 +23,23 @@
             confirmation.setAttribute('hidden', '');
             firstButton.removeAttribute('hidden');
         }
+        console.log("loaded");
+        const getData = () => {
+            // console.log("start");
+            const formOption = 'Exhibit';
+            const id = document.getElementById('inputID');
+            document.getElementById('formID').value = id.value;
+            // console.log("input:" + formOption.value);
+            const route = "/api/" + formOption.toLowerCase() + "s/" + id.value + "?format=json";
+            console.log("route:" + route);
+            fetch(route, {
+                method: 'GET'
+            }).then(res => res.json()).then(data => {
+                console.log(data);
+                if (data.id == document.getElementById('inputID').value){
+
+                }})
+            }
     </script>
 </head>
 <body>
