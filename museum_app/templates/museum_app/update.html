@@ -17,15 +17,17 @@
             document.getElementById('formID').value = id.value;
             document.getElementById('formTable').value = formOption;
             const route = "/api/" + formOption.toLowerCase() + "s/" + id.value + "?format=json";
-            console.log("route:" + route);
+            // console.log("route:" + route);
+            // console.log(formOption);
             if(formOption == ''){
-              console.log('tableError');
+              // console.log('tableError');
               errorFetch.innerHTML = 'Please select a table.';
+              errorFetch.removeAttribute('hidden');
             }
             fetch(route, {
                 method: 'GET'
             }).then(res => res.json()).then(data => {
-                console.log(data);
+                // console.log(data);
                 if (data.id == document.getElementById('inputID').value){
                     let elem = document.createElement('input');
                     let updateFields = document.getElementById('updateFields');
@@ -33,23 +35,23 @@
                     for(let i in data){
                       elem = document.createElement('input');
                       if (i.includes('date')){
-                        console.log('date' + data[i]);
+                        // console.log('date' + data[i]);
                         elem.setAttribute('type', 'date');
                         elem.setAttribute('value', data[i]);
                       }else if(i.includes('description') || i.includes('title')){
-                        console.log('textarea' + data[i]);
+                        // console.log('textarea' + data[i]);
                         elem = document.createElement('textarea');
                         elem.innerHTML = data[i];
                       }else if (i === 'id'){
-                        console.log('id' + data[i]);
+                        // console.log('id' + data[i]);
                         elem = document.createElement('p');
                         elem.innerHTML = 'ID: ' + data[i];
                       }else{
-                        console.log('else' + data[i]);
+                        // console.log('else' + data[i]);
                         elem.setAttribute('type', 'text');
                         elem.setAttribute('value', data[i]);
                       }
-                      console.log('append child');
+                      // console.log('append child');
                       if (i !== 'id'){
                         elem.setAttribute('id', i);
                         let p = document.createElement('p');
@@ -69,7 +71,7 @@
                     updateFields.removeAttribute('hidden');
                     document.getElementById('formHead').removeAttribute('hidden');
                     document.getElementById('formFoot').removeAttribute('hidden');
-                    console.log('data set');
+                    // console.log('data set');
                 }else{
                     errorFetch.removeAttribute('hidden');
                     if(data['detail']){
