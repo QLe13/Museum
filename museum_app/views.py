@@ -1,4 +1,4 @@
-from django.http import HttpResponse, HttpResponseNotFound
+from django.http import HttpResponse, HttpResponseNotFound, HttpResponseBadRequest
 from django.template import loader
 from django.shortcuts import render, redirect
 from django.contrib import messages
@@ -74,36 +74,85 @@ def update(request):
     return HttpResponse(loader.get_template("museum_app/update.html").render(request = request))
 
 def updateResponse(request):
-    table = request.GET['table'].lower()
-    data = {'exhibits': Exhibit.objects.all()}
-    if table.lower() == 'person':
-        return HttpResponse(loader.get_template("museum_app/updatePerson.html").render(request = request))
+    table = request.POST['table'].lower()
+    for i in request.POST.values():
+        if i == '':
+            return HttpResponseBadRequest('Missing data <form action="/" method="get"><button type="submit">Home</button></form>')
+
+
+    if table == 'person':
+        _updatePerson(request.POST)
     elif table == 'exhibit':
-        return HttpResponse(loader.get_template("museum_app/updateExhibit.html").render(request = request))
+        _updateExhibit(request.POST)
     elif table == 'visit':
-        return HttpResponse(loader.get_template("museum_app/updateVisit.html").render(request = request, context = data))
+        _updateVisit(request.POST)
     elif table == 'item':
-        return HttpResponse(loader.get_template("museum_app/updateItem.html").render(request = request, context = data))
+        _updateItem(request.POST)
     elif table == 'transaction':
-        return HttpResponse(loader.get_template("museum_app/updateTransaction.html").render(request = request))
+        _updateTransaction(request.POST)
     elif table == 'transaction-item':
-        return HttpResponse(loader.get_template("museum_app/updateTransactionItem.html").render(request = request))
+        _updateTransactionItem(request.POST)
     else:
+        for i in request.POST.keys():
+            print(request.POST[i])
+
         return HttpResponseNotFound(loader.get_template("museum_app/notFound.html").render(request = request))
 
-def updateExhibit(request):
-    # print(request.POST)
-    # print(request)
-    # Not working yet
-    newData = request.POST
-    oldData = Exhibit.objects.get(pk=newData['id'])
-    for i in newData.keys():
-        for k in oldData.keys():
-            if i == k:
-                if newData[i] != oldData[k]:
-                    print('New data:', newData[i])
+    return HttpResponse('ok')
 
-    return HttpResponse(content='hello world')
+def _updateExhibit(newData):
+    rowID = newData['id']
+    dbData = Exhibit.objects.get(pk=rowID)
+    dbData.name = newData['name']
+    dbData.description = newData['description']
+    dbData.start_date = newData['start_date']
+    dbData.end_date = newData['end_date']
+    dbData.current_ticket_price = newData['current_ticket_price']
+    dbData.save()
+
+def _updatePerson(newData):
+    rowID = newData['id']
+    dbData = Person.objects.get(pk=rowID)
+    dbData.name = newData['name']
+    dbData.email = newData['email']
+    dbData.phone = newData['phone']
+    dbData.role = newData['role']
+
+def _updateVisit(newData):
+    rowID = newData['id']
+    dbData = Visit.objects.get(pk=rowID)
+    dbData.visit_date = newData['visit_date']
+    dbData.ticket_price = newData['ticket_price']
+
+def _updateItem(newData):
+    rowID = newData['id']
+    dbData = Item.objects.get(pk=rowID)
+    dbData.item_name = newData['item_name']
+    dbData.item_description = newData['item_description']
+    dbData.category = newData['category']
+    dbData.price = newData['price']
+    dbData.quantity = newData['quantity']
+    dbData.cutoff_price = newData['cutoff_price']
+    dbData.exhibit = newData['exhibit']
+    dbData.owner = newData['owner']
+    dbData.save()
+
+def _updateTransaction(newData):
+    rowID = newData['id']
+    dbData = Transaction.objects.get(pk=rowID)
+    dbData.transaction_date = newData['transaction_date']
+    dbData.total_amount = newData['total_amount']
+    dbData.buyer = newData['buyer']
+    dbData.seller = newData['seller']
+
+def _updateTransactionItem(newData):
+    rowID = newData['id']
+    dbData = TransactionItem.objects.get(pk=rowID)
+    dbData.transaction = newData['transaction']
+    dbData.item = newData['item']
+    dbData.quantity = newData['quantity']
+    dbData.price = newData['price']
+
 
 def delete(request):
     return HttpResponse(loader.get_template("museum_app/delete.html").render(request = request))

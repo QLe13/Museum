@@ -3,23 +3,113 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Update Data | Thing-A-Bob Museum</title>
-</head>
-<body>
-    <h1>Update Data</h1>
-    <p>What table would you like to update data for?</p>
+    <title>Update Exhibit</title>
+    <script>
+        "use strict";
+        console.log("loaded");
+        const getData = () => {
+            // console.log("start");
+            const formOption = document.getElementById('select').value;
+            const id = document.getElementById('inputID');
+            document.getElementById('formID').value = id.value;
+            const route = "/api/" + formOption.toLowerCase() + "s/" + id.value + "?format=json";
+            console.log("route:" + route);
+            fetch(route, {
+                method: 'GET'
+            }).then(res => res.json()).then(data => {
+                console.log(data);
+                if (data.id == document.getElementById('inputID').value){
+                    let elem = document.createElement('input');
+                    let updateFields = document.getElementById('updateFields');
+                    updateFields.innerHTML = '';
+                    for(let i in data){
+                      elem = document.createElement('input');
+                      if (i.includes('date')){
+                        console.log('date' + data[i]);
+                        elem.setAttribute('type', 'date');
+                        elem.setAttribute('value', data[i]);
+                      }else if(i.includes('description') || i.includes('title')){
+                        console.log('textarea' + data[i]);
+                        elem = document.createElement('textarea');
+                        elem.innerHTML = data[i];
+                      }else if (i === 'id'){
+                        console.log('id' + data[i]);
+                        elem = document.createElement('p');
+                        elem.innerHTML = 'ID: ' + data[i];
+                      }else{
+                        console.log('else' + data[i]);
+                        elem.setAttribute('type', 'text');
+                        elem.setAttribute('value', data[i]);
+                      }
+                      console.log('append child');
+                      if (i !== 'id'){
+                        elem.setAttribute('id', i);
+                        let p = document.createElement('p');
+                        p.innerHTML = i + ': ';
+                        updateFields.appendChild(p);
+                      }
+                      elem.setAttribute('name', i);
+                      updateFields.appendChild(elem);
+                      updateFields.appendChild(document.createElement('br'));
+                    }
+                    document.getElementById('start').setAttribute('hidden', 'true');
+                    const resetButton = document.createElement('button');
+                    resetButton.setAttribute('id', 'resetButton');
+                    resetButton.setAttribute('onclick', 'reset()');
+                    resetButton.innerHTML = 'Go Back';
+                    document.getElementById('body').appendChild(resetButton);
+                    updateFields.removeAttribute('hidden');
+                    document.getElementById('formHead').removeAttribute('hidden');
+                    document.getElementById('formFoot').removeAttribute('hidden');
+                    console.log('data set');
+                }else{
+                    console.log('error fetch');
+                }
+            });
+            return 1;
+        }
+        const reset = () => {
+            document.getElementById('start').removeAttribute('hidden');
+            const updateFields = document.getElementById('updateFields');
+            updateFields.setAttribute('hidden', '');
+            updateFields.innerHTML = '';
+            document.getElementById('formHead').setAttribute('hidden', '');
+            document.getElementById('formFoot').setAttribute('hidden', '');
+            document.body.removeChild(document.getElementById('resetButton'));
 
-    <form action="/api/v2/updateResponse" method="get">
-        <select name="table" id="select">
-            <option value="">--select--</option>
-            <option>Exhibit</option>
-            <option>Item</option>
-            <option>Visit</option>
-            <option>Person</option>
-            <option>Transaction</option>
-            <option value="transaction-item">TransactionItem</option>
-        </select>
-        <button type="submit">Update</button>
+        }
+    </script>
+</head>
+
+<body id="body">
+    <div id="start">
+      <p>Select a table:</p>
+      <select name="table" id="select">
+        <option value="">--select--</option>
+        <option>Exhibit</option>
+        <option>Item</option>
+        <option>Visit</option>
+        <option>Person</option>
+        <option>Transaction</option>
+        <option value="transaction-item">TransactionItem</option>
+      </select>
+      <br><br>
+        Enter the ID of a row: <input type="text" id="inputID">
+        <br><br>
+        <button onclick="getData()">Submit</button>
+    </div>
+    <form action="/api/v2/updateResponse" method="post">
+      <input type="hidden" name="id" id="formID">
+      <input type="hidden" name="table" id="formTable">
+      {% csrf_token %}
+    <div id="formHead" hidden="">
+      <p>Update the data below as needed:</p>
+    </div>
+    <div id="updateFields" hidden="">
+    </div>
+    <div id="formFoot" hidden="">
+      <button type="submit">Update Row</button>
+    </div>
     </form>
 </body>
 
