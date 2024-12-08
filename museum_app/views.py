@@ -77,6 +77,7 @@ def updateResponse(request):
     table = request.POST['table'].lower()
     for i in request.POST.values():
         if i == '':
+            print(request.POST)
             return HttpResponseBadRequest('Missing data <form action="/" method="get"><button type="submit">Home</button></form>')
 
 
@@ -117,12 +118,14 @@ def _updatePerson(newData):
     dbData.email = newData['email']
     dbData.phone = newData['phone']
     dbData.role = newData['role']
+    dbData.save()
 
 def _updateVisit(newData):
     rowID = newData['id']
     dbData = Visit.objects.get(pk=rowID)
     dbData.visit_date = newData['visit_date']
     dbData.ticket_price = newData['ticket_price']
+    dbData.save()
 
 def _updateItem(newData):
     rowID = newData['id']
@@ -144,6 +147,7 @@ def _updateTransaction(newData):
     dbData.total_amount = newData['total_amount']
     dbData.buyer = newData['buyer']
     dbData.seller = newData['seller']
+    dbData.save()
 
 def _updateTransactionItem(newData):
     rowID = newData['id']
@@ -152,6 +156,7 @@ def _updateTransactionItem(newData):
     dbData.item = newData['item']
     dbData.quantity = newData['quantity']
     dbData.price = newData['price']
+    dbData.save()
 
 
 def delete(request):

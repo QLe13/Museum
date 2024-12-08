@@ -12,6 +12,7 @@
             const formOption = document.getElementById('select').value;
             const id = document.getElementById('inputID');
             document.getElementById('formID').value = id.value;
+            document.getElementById('formTable').value = formOption;
             const route = "/api/" + formOption.toLowerCase() + "s/" + id.value + "?format=json";
             console.log("route:" + route);
             fetch(route, {
