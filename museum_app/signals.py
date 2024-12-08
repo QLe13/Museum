@@ -21,7 +21,6 @@ def update_popularity_report(sender, instance, created, **kwargs):
     end_day = calendar.monthrange(year, end_month)[1]
     end_date = date(year, end_month, end_day)
 
-
     exhibit = instance.exhibit
 
     report, created_report = PopularityReport.objects.get_or_create(
