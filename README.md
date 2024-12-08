@@ -313,7 +313,7 @@ Since Swagger UI has not been maintained, you can use drf-spectualar to achieve 
 - **Django Documentation**: [https://docs.djangoproject.com/en/stable/](https://docs.djangoproject.com/en/stable/)
 - **Django REST Framework Documentation**: [https://www.django-rest-framework.org/](https://www.django-rest-framework.org/)
 - **MySQL Documentation**: [https://dev.mysql.com/doc/](https://dev.mysql.com/doc/)
-- **drf-spectacular Documentation**: [https://drf-spectacular.readthedocs.io/en/latest/readme.html#/](https://drf-spectacular.readthedocs.io/en/latest/readme.html/#/)
+- **drf-spectacular Documentation**: [https://drf-spectacular.readthedocs.io/en/latest/readme.html#/](https://drf-spectacular.readthedocs.io/en/latest/readme.html#/)
 
 ---
 
