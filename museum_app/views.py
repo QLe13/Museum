@@ -1,3 +1,5 @@
+import datetime
+
 from django.http import HttpResponse, HttpResponseNotFound, HttpResponseBadRequest
 from django.template import loader
 from django.shortcuts import render, redirect
@@ -106,8 +108,12 @@ def _updateExhibit(newData):
     dbData = Exhibit.objects.get(pk=rowID)
     dbData.name = newData['name']
     dbData.description = newData['description']
-    dbData.start_date = newData['start_date']
-    dbData.end_date = newData['end_date']
+    startDate_ = newData['start_date']
+    startDate = datetime.date(year=int(startDate_[0:4]), month=int(startDate_[5:7]), day=int(startDate_[8:]))
+    dbData.start_date = startDate
+    endDate_ = newData['end_date']
+    endDate = datetime.date(year=int(endDate_[0:4]), month=int(endDate_[5:7]), day=int(endDate_[8:]))
+    dbData.end_date = endDate
     dbData.current_ticket_price = newData['current_ticket_price']
     dbData.save()
 
@@ -123,8 +129,12 @@ def _updatePerson(newData):
 def _updateVisit(newData):
     rowID = newData['id']
     dbData = Visit.objects.get(pk=rowID)
-    dbData.visit_date = newData['visit_date']
+    visitDate_ = newData['visit_date']
+    visitDate = datetime.date(year=int(visitDate_[0:4]), month=int(visitDate_[5:7]), day=int(visitDate_[8:]))
+    dbData.visit_date = visitDate
     dbData.ticket_price = newData['ticket_price']
+    dbData.exhibit = Exhibit.objects.get(pk=int(newData['exhibit']))
+    dbData.person = Person.objects.get(pk=int(newData['person']))
     dbData.save()
 
 def _updateItem(newData):
@@ -135,9 +145,9 @@ def _updateItem(newData):
     dbData.category = newData['category']
     dbData.price = newData['price']
     dbData.quantity = newData['quantity']
-    dbData.cutoff_price = newData['cutoff_price']
-    dbData.exhibit = newData['exhibit']
-    dbData.owner = newData['owner']
+    dbData.cutoff_price = 0 if newData['cutoff_price'] == 'null' else newData['cutoff_price']
+    dbData.exhibit = Exhibit.objects.get(pk=int(newData['exhibit']))
+    dbData.owner = Person.objects.get(pk=int(newData['owner']))
     dbData.save()
 
 def _updateTransaction(newData):
@@ -145,15 +155,15 @@ def _updateTransaction(newData):
     dbData = Transaction.objects.get(pk=rowID)
     dbData.transaction_date = newData['transaction_date']
     dbData.total_amount = newData['total_amount']
-    dbData.buyer = newData['buyer']
-    dbData.seller = newData['seller']
+    dbData.buyer = Person.objects.get(pk=int(newData['buyer']))
+    dbData.seller = Person.objects.get(pk=int(newData['seller']))
     dbData.save()
 
 def _updateTransactionItem(newData):
     rowID = newData['id']
     dbData = TransactionItem.objects.get(pk=rowID)
-    dbData.transaction = newData['transaction']
-    dbData.item = newData['item']
+    dbData.transaction = Transaction.objects.get(pk=int(newData['transaction']))
+    dbData.item = Item.objects.get(pk=int(newData['item']))
     dbData.quantity = newData['quantity']
     dbData.price = newData['price']
     dbData.save()

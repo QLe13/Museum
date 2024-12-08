@@ -9,12 +9,19 @@
         console.log("loaded");
         const getData = () => {
             // console.log("start");
+            const errorFetch = document.getElementById('errorFetch');
+            errorFetch.setAttribute('hidden', '');
+            errorFetch.innerHTML = 'An error occured.';
             const formOption = document.getElementById('select').value;
             const id = document.getElementById('inputID');
             document.getElementById('formID').value = id.value;
             document.getElementById('formTable').value = formOption;
             const route = "/api/" + formOption.toLowerCase() + "s/" + id.value + "?format=json";
             console.log("route:" + route);
+            if(formOption == ''){
+              console.log('tableError');
+              errorFetch.innerHTML = 'Please select a table.';
+            }
             fetch(route, {
                 method: 'GET'
             }).then(res => res.json()).then(data => {
@@ -64,7 +71,10 @@
                     document.getElementById('formFoot').removeAttribute('hidden');
                     console.log('data set');
                 }else{
-                    console.log('error fetch');
+                    errorFetch.removeAttribute('hidden');
+                    if(data['detail']){
+                      errorFetch.innerHTML = data['detail'];
+                    }
                 }
             });
             return 1;
@@ -98,6 +108,7 @@
         Enter the ID of a row: <input type="text" id="inputID">
         <br><br>
         <button onclick="getData()">Submit</button>
+        <p hidden="" id="errorFetch">An error occured.</p>
     </div>
     <form action="/api/v2/updateResponse" method="post">
       <input type="hidden" name="id" id="formID">
