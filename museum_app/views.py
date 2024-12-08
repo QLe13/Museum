@@ -101,7 +101,7 @@ def updateResponse(request):
 
         return HttpResponseNotFound(loader.get_template("museum_app/notFound.html").render(request = request))
 
-    return HttpResponse('ok')
+    return HttpResponse('ok <form action=')
 
 def _updateExhibit(newData):
     rowID = newData['id']
