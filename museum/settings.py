@@ -39,7 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'museum_app',
     'rest_framework',
-    'django_extensions'
+    'django_extensions',
+    'drf_spectacular'
 ]
 
 MIDDLEWARE = [
@@ -79,9 +80,9 @@ WSGI_APPLICATION = 'museum.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'museum',      # Replace with your DB name
+        'NAME': 'thing_a_bob_muesum',      # Replace with your DB name
         'USER': 'root',           # Replace with your DB username
-        'PASSWORD': 'root',       # Replace with your DB password
+        'PASSWORD': 'Pink7136680807',       # Replace with your DB password
         'HOST': 'localhost',
         'PORT': '3306',
     }
@@ -129,3 +130,7 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+REST_FRAMEWORK = {
+    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
+    }

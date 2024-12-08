@@ -1,10 +1,11 @@
 {% extends 'museum_app/base.html' %}
 {% block content %}
-<h1>Thing-a-bob museum Popularity Reports</h1>
-
+<br>
+<h1 class = "text-center">Thing-a-bob museum Popularity Reports</h1>
+<br>
 <form action ="{% url 'generate_popularity_report' %}" method="post">
     {% csrf_token %}
-    <button type="submit">Generate Popularity Reports</button>
+    <h4 class = "text-center"><button type="submit" class = "btn btn-primary">Generate Popularity Reports</button></h4>
 </form>
 
 {% if messages %}
@@ -12,8 +13,9 @@
         <p {% if message.tag %} class="{{  message.tag  }}" {% endif %}>{{ message }}</p>
     {% endfor %}
 {% endif %}
+<br>
 
-<table>
+<table class="table table-striped table-bordered">
     <thread>
         <tr>
             <th>Title</th>
