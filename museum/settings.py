@@ -80,9 +80,9 @@ WSGI_APPLICATION = 'museum.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'thing_a_bob_muesum',      # Replace with your DB name
+        'NAME': 'museum',      # Replace with your DB name
         'USER': 'root',           # Replace with your DB username
-        'PASSWORD': 'root',       # Replace with your DB password
+        'PASSWORD': '@Chi3v3r$',       # Replace with your DB password
         'HOST': 'localhost',
         'PORT': '3306',
     }

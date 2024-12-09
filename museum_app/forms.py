@@ -1,4 +1,5 @@
 from django import forms
+from django.core.exceptions import ValidationError
 from .models import Person, Exhibit, Visit, Item, Transaction, TransactionItem, PopularityReport
 
 class PersonForm(forms.ModelForm):
@@ -7,6 +8,19 @@ class PersonForm(forms.ModelForm):
         fields = '__all__'
 
 class ExhibitForm(forms.ModelForm):
+    def clean(self):
+        # print('self', self)
+        super_ = super().clean()
+        # print('self 2', self)
+        # print('super', super_)
+        # print(super_['start_date'] > super_['end_date'])
+        # print('start', self.instance.start_date)
+        # print('end', self.instance.end_date)
+        if(super_['start_date'] > super_['end_date']):
+            print('validation error')
+            raise ValidationError(("Start date after end date"), code='invalid')
+        return super_
+
     class Meta:
         model = Exhibit
         fields = '__all__'
