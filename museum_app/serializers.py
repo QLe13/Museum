@@ -35,3 +35,12 @@ class PopularityReportSerializer(serializers.ModelSerializer):
     class Meta:
         model = PopularityReport
         fields = '__all__'
+
+class CutOffPriceResponseSerializer(serializers.Serializer):
+    message = serializers.CharField()
+    cutoff_prices = serializers.ListField(
+        child=serializers.DictField(
+            child=serializers.FloatField(),
+            allow_empty=False,
+        )
+    )

@@ -24,6 +24,7 @@ This guide will help you set up the backend environment to run the application l
 - [Running the Development Server](#running-the-development-server)
 - [Testing the API](#testing-the-api)
 - [Troubleshooting](#troubleshooting)
+- [Installing drf-spectacular](#install-drf-spectacular)
 - [Additional Resources](#additional-resources)
 
 ---
@@ -265,11 +266,54 @@ Ensure that:
 
 ---
 
+## **Setting up drf-spectular**
+
+Since Swagger UI has not been maintained, you can use drf-spectualar to achieve swagger ui look.
+
+1. **Installing drf-spectular**
+   ```bash
+      pip install drf-spectacular
+   ```
+2. **Configuration of setting.py**
+   - Add drf-_spectacular to your installed_apps:
+   ```python
+      INSTALLED_APPS = [
+         # ALL YOUR APPS
+         'drf_spectacular',
+      ]
+   ```
+
+   - Add Rest Framework or modeifiy your existing one to include default_schema_class:
+   ```python
+      REST_FRAMEWORK = {
+         # YOUR SETTINGS
+         'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
+      }
+   ```
+3. **Update your url.py**
+   - add SpectacularAPIView and SpectacularSwaggerView to the top of the url file:
+      ```python
+         from drf_spectacular.views import SpectacularAPIView, SpectacularSwaggerView
+      ```
+   
+   - add two new url to be able to access the swagger ui
+      ```python
+         path('api/schema/', SpectacularAPIView.as_view(), name='schema'),
+         path('api/schema/swagger-ui/', SpectacularSwaggerView.as_view(url_name='schema'), name='swagger-ui'),
+      ```
+      Once add, you should be able to enter in the url to your browser and be able to see all your serializers and routes in the swagger ui.
+
+      If it doesn't show up:
+         - Check to see if you wrote the url correctly with /schema/swagger-ui/
+         - Make sure you set up your setting right
+         - Make sure you download the correct pip
+
 ## **Additional Resources**
 
 - **Django Documentation**: [https://docs.djangoproject.com/en/stable/](https://docs.djangoproject.com/en/stable/)
 - **Django REST Framework Documentation**: [https://www.django-rest-framework.org/](https://www.django-rest-framework.org/)
 - **MySQL Documentation**: [https://dev.mysql.com/doc/](https://dev.mysql.com/doc/)
+- **drf-spectacular Documentation**: [https://drf-spectacular.readthedocs.io/en/latest/readme.html#/](https://drf-spectacular.readthedocs.io/en/latest/readme.html#/)
 
 ---
 

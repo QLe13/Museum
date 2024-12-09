@@ -3,6 +3,9 @@ from django.contrib import messages
 from django.http import HttpResponse
 from django.urls import reverse
 from django.utils.http import urlencode
+from drf_spectacular.utils import extend_schema
+from rest_framework.decorators import api_view
+from rest_framework import status
 
 from rest_framework import viewsets
 from .models import Person, Exhibit, Visit, Item, Transaction, TransactionItem, find_total_revenue, find_total_visitors, PopularityReport
@@ -11,6 +14,8 @@ from .serializers import (
     ItemSerializer, TransactionSerializer, TransactionItemSerializer,
     PopularityReportSerializer
 )
+
+from .serializers import CutOffPriceResponseSerializer
 from .signals import update_popularity_report
 from .utils import update_cutoff_prices
 from .forms import PersonForm, ExhibitForm, VisitForm, ItemForm, TransactionForm, TransactionItemForm, PopularityReportForm
@@ -201,6 +206,16 @@ def item_list(request):
     items = Item.objects.all()
     return render(request, 'museum_app/item_list.html', {'items': items})
 
+@extend_schema(
+    methods = ['POST'],
+    description = 'Return the CutOff Price',
+    responses={
+        200: CutOffPriceResponseSerializer,  # Successful response
+        400: {"description": "Invalid request or data."},  # Error response
+    }
+)
+
+@api_view(['POST'])
 def regenerate_cutoff_prices(request):
     """
     Regenerates the cut-off prices for all exhibits and redirects back to the item list.
